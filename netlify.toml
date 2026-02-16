@@ -1,5 +1,5 @@
 [build.environment]
-  NODE_OPTIONS = "--max-old-space-size=4096"
+  NODE_OPTIONS = "--max-old-space-size=3072"
   NPM_FLAGS = "--legacy-peer-deps"
 
 [build]
