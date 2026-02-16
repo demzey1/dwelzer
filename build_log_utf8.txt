@@ -1,0 +1,40 @@
+﻿
+> dwelzer@0.1.0 build
+> npx prisma generate && next build
+
+Environment variables loaded from .env
+Prisma schema loaded from prisma\schema.prisma
+node.exe : Error: 
+At line:1 char:1
++ & "C:\Program Files
+\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo 
+...
++ ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: (Error:    
+ :String) [], Rem    
+oteException
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+EPERM: operation not 
+permitted, rename 'C:
+\Users\User\OneDrive\
+Desktop\dwelzer\node_
+modules\.prisma\clien
+t\query_engine-window
+s.dll.node.tmp2860' 
+-> 'C:\Users\User\One
+Drive\Desktop\dwelzer
+\node_modules\.prisma
+\client\query_engine-
+windows.dll.node'
+
+

@@ -1,0 +1,102 @@
+﻿
+> dwelzer@0.1.0 build
+> npx prisma generate && next build
+
+Environment variables loaded from .env
+Prisma schema loaded from prisma\schema.prisma
+
+Γ£ö Generated Prisma Client (v5.22.0) to .\node_modules\@prisma\client in 668ms
+
+Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+
+Tip: Want real-time updates to your database without manual polling? Discover how with Pulse: https://pris.ly/tip-0-pulse
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env
+
+node.exe : ΓÜá The 
+"middleware" file 
+convention is 
+deprecated. Please 
+use "proxy" instead. 
+Learn more: https://n
+extjs.org/docs/messag
+es/middleware-to-prox
+y
+At line:1 char:1
++ & "C:\Program Files
+\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo 
+...
++ ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: (ΓÜá The   
+  "middle...lewar    
+e-to-proxy:Strin    
+g) [], RemoteExc    
+eption
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 15.8s
+  Running TypeScript ...
+Failed to compile.
+
+./src/app/(auth)/logi
+n/page.tsx:53:13
+Type error: Property 
+'motion_div_layout' 
+does not exist on 
+type 'JSX.IntrinsicEl
+ements'.
+
+[0m [90m 51 |[39m 
+            [33m<[3
+9m[33mdiv[39m class
+Name[33m=[39m[32m"
+absolute 
+bottom-[-20%] 
+left-[-10%] 
+w-[600px] h-[600px] b
+g-dwelzer-accent-blue
+/5 rounded-full 
+blur-[120px]"[39m [
+33m/[39m[33m>[39m
+ [90m 52 |[39m
+[31m[1m>[22m[39m
+[90m 53 |[39m       
+      [33m<[39m[33
+mmotion_div_layout[3
+9m
+ [90m    |[39m     
+        
+[31m[1m^[22m[39m
+ [90m 54 |[39m     
+            
+initial[33m=[39m{{ 
+opacity[33m:[39m [
+35m0[39m[33m,[39m 
+y[33m:[39m 
+[35m20[39m }}
+ [90m 55 |[39m     
+            
+animate[33m=[39m{{ 
+opacity[33m:[39m [
+35m1[39m[33m,[39m 
+y[33m:[39m 
+[35m0[39m }}
+ [90m 56 |[39m     
+            className
+[33m=[39m[32m"w-fu
+ll max-w-[480px] 
+z-10"[39m[0m
+Next.js build worker 
+exited with code: 1 
+and signal: null

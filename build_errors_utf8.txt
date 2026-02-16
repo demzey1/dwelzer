@@ -1,0 +1,29 @@
+﻿node.exe : Γ¿» 
+Unable to acquire 
+lock at C:\Users\User
+\OneDrive\Desktop\dwe
+lzer\.next\lock, is 
+another instance of 
+next build running?
+At line:1 char:1
++ & "C:\Program Files
+\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo 
+...
++ ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: (Γ¿» Una   
+ ble to a... buil    
+d running?:Strin    
+g) [], RemoteExc    
+eption
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+  Suggestion: If you intended to restart next build, terminate the other process, and then try again.

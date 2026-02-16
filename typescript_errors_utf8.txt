@@ -1,0 +1,20 @@
+﻿src/app/dashboard/bookings/page.tsx(43,111): error TS2339: Property 'startDate' does not exist on type '{ id: string; createdAt: Date; updatedAt: Date; currency: string; status: string; userId: string; shortletId: string | null; listingId: string | null; hotelId: string | null; ... 5 more ...; notes: string | null; }'.
+src/app/dashboard/bookings/page.tsx(43,154): error TS2339: Property 'endDate' does not exist on type '{ id: string; createdAt: Date; updatedAt: Date; currency: string; status: string; userId: string; shortletId: string | null; listingId: string | null; hotelId: string | null; ... 5 more ...; notes: string | null; }'.
+src/app/dashboard/page.tsx(83,26): error TS2304: Cannot find name 'Link'.
+src/app/dashboard/page.tsx(83,136): error TS2304: Cannot find name 'Link'.
+src/app/dashboard/subscription/page.tsx(12,20): error TS2353: Object literal may only specify known properties, and 'priority' does not exist in type 'TierOrderByWithRelationInput | TierOrderByWithRelationInput[]'.
+src/app/dashboard/subscription/page.tsx(22,43): error TS2322: Type '"lg"' is not assignable to type '"sm" | "md" | undefined'.
+src/app/dashboard/subscription/page.tsx(65,45): error TS2339: Property 'listingLimit' does not exist on type '{ id: string; name: string; price: number; maxListings: number; canCreateListing: boolean; canUseEscrow: boolean; canAuction: boolean; canLegalSearch: boolean; canAccessAdmin: boolean; prioritySupport: boolean; description: string; }'.
+src/app/dashboard/subscription/page.tsx(65,88): error TS2339: Property 'listingLimit' does not exist on type '{ id: string; name: string; price: number; maxListings: number; canCreateListing: boolean; canUseEscrow: boolean; canAuction: boolean; canLegalSearch: boolean; canAccessAdmin: boolean; prioritySupport: boolean; description: string; }'.
+src/app/dashboard/subscription/page.tsx(71,35): error TS2339: Property 'priority' does not exist on type '{ id: string; name: string; price: number; maxListings: number; canCreateListing: boolean; canUseEscrow: boolean; canAuction: boolean; canLegalSearch: boolean; canAccessAdmin: boolean; prioritySupport: boolean; description: string; }'.
+src/app/hotels/[id]/page.tsx(39,22): error TS2304: Cannot find name 'Link'.
+src/app/hotels/[id]/page.tsx(39,104): error TS2304: Cannot find name 'Link'.
+src/app/legal-search/page.tsx(103,53): error TS2339: Property 'landmark' does not exist on type 'JSX.IntrinsicElements'.
+src/app/legal-search/page.tsx(103,155): error TS2339: Property 'landmark' does not exist on type 'JSX.IntrinsicElements'.
+src/app/marketplace/[id]/page.tsx(46,22): error TS2304: Cannot find name 'Link'.
+src/app/marketplace/[id]/page.tsx(46,114): error TS2304: Cannot find name 'Link'.
+src/app/marketplace/[id]/page.tsx(61,55): error TS2322: Type '"lg"' is not assignable to type '"sm" | "md" | undefined'.
+src/app/marketplace/[id]/page.tsx(67,42): error TS7006: Parameter 'img' implicitly has an 'any' type.
+src/app/marketplace/[id]/page.tsx(67,47): error TS7006: Parameter 'i' implicitly has an 'any' type.
+src/app/shortlets/[id]/page.tsx(39,22): error TS2304: Cannot find name 'Link'.
+src/app/shortlets/[id]/page.tsx(39,110): error TS2304: Cannot find name 'Link'.
