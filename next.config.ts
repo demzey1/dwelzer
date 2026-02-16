@@ -1,4 +1,3 @@
-```typescript
 const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
