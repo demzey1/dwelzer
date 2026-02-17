@@ -83,7 +83,7 @@ export default function Navbar() {
     >
       <div
         className={cn(
-          'mx-auto flex h-16 max-w-[1440px] items-center justify-between rounded-2xl border border-slate-200/60 bg-white/85 px-3 shadow-lg backdrop-blur-xl',
+          'mx-auto flex h-16 max-w-[1440px] items-center justify-between rounded-2xl border border-slate-200/60 bg-white/90 px-3 shadow-lg backdrop-blur-xl',
           isScrolled && 'h-14'
         )}
       >
@@ -101,14 +101,14 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setSwitcherOpen((open) => !open)}
-            className="flex min-w-[240px] items-center justify-between rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:border-[#D4AF37]/60"
+            className="flex min-w-[240px] items-center justify-between rounded-full border border-slate-200 bg-slate-900 px-4 py-2 text-sm font-semibold text-slate-50 shadow-sm transition hover:border-[#D4AF37]/60"
           >
             <span>{selectedPortal.name}</span>
             <ChevronDown size={16} className={cn('transition-transform', switcherOpen && 'rotate-180')} />
           </button>
 
           {switcherOpen && (
-            <div className="absolute left-0 top-[calc(100%+8px)] w-full rounded-2xl border border-slate-200 bg-white p-2 shadow-2xl">
+            <div className="absolute left-0 top-[calc(100%+8px)] w-full rounded-2xl border border-slate-800 bg-slate-900 text-slate-50 p-2 shadow-2xl">
               {PORTALS.map((portal) => (
                 <button
                   key={portal.id}
@@ -117,12 +117,12 @@ export default function Navbar() {
                   className={cn(
                     'flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-sm transition',
                     selectedPortal.id === portal.id
-                      ? 'bg-slate-900 text-slate-50'
-                      : 'text-slate-700 hover:bg-slate-100'
+                      ? 'bg-[#D4AF37] text-slate-900'
+                      : 'text-slate-100 hover:bg-white/10'
                   )}
                 >
                   <span>{portal.name}</span>
-                  {selectedPortal.id === portal.id && <span className="text-[#D4AF37]">Active</span>}
+                  {selectedPortal.id === portal.id && <span className="text-slate-900 font-semibold">Active</span>}
                 </button>
               ))}
             </div>
