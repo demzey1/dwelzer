@@ -18,6 +18,9 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
+export const dynamic = 'force-dynamic'
+
+
 const MOCK_CHATS = [
     { id: '1', name: 'Malibu Estate Concierge', lastMsg: 'The escrow documents have been uploaded for your review.', date: '2m ago', unread: 2, online: true },
     { id: '2', name: 'Luxury Auto Dealer', lastMsg: 'The 2024 Rolls Royce is ready for viewing.', date: '15m ago', unread: 0, online: true },
@@ -195,3 +198,5 @@ export default function MessagesChatPage() {
         </div>
     )
 }
+
+

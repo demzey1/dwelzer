@@ -9,6 +9,9 @@ import { Card } from '@/components/ui/Card'
 import { Mail, Lock, User, ArrowRight, ShieldCheck, CheckCircle2 } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 
+export const dynamic = 'force-dynamic'
+
+
 export default function RegisterPage() {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
@@ -157,3 +160,5 @@ export default function RegisterPage() {
         </div>
     )
 }
+
+

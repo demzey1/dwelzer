@@ -90,7 +90,7 @@ export default async function ShortletDetailPage({ params }: { params: { id: str
                         <section className="bg-white p-10 rounded-[40px] border border-border">
                             <h3 className="text-2xl font-black text-dwelzer-navy font-display mb-6">About this Stay</h3>
                             <div className="prose prose-slate max-w-none text-text-secondary font-medium leading-relaxed">
-                                {shortlet.description.split('\n').map((para, i) => (
+                                {shortlet.description.split('\n').map((para: string, i: number) => (
                                     <p key={i} className="mb-4">{para}</p>
                                 ))}
                             </div>

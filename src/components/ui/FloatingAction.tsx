@@ -1,55 +1,56 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Plus, MessageSquare, ShieldCheck, Building2, ShoppingBag, Scale, X } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { Button } from './Button'
+import Link from 'next/link'
+import { Bolt, Building2, Scale, ShoppingBag, X } from 'lucide-react'
+import { Drawer } from './Drawer'
+
+const quickActions = [
+  { label: 'List Property', href: '/dashboard/listings/new', icon: Building2 },
+  { label: 'Open Marketplace', href: '/marketplace', icon: ShoppingBag },
+  { label: 'Legal Consultation', href: '/legal-search/lawyers', icon: Scale },
+]
 
 export const FloatingAction = () => {
-    const [isOpen, setIsOpen] = useState(false)
+  const [open, setOpen] = useState(false)
 
-    const actions = [
-        { label: 'Register Asset', icon: Building2, color: 'bg-blue-500', href: '/dashboard/listings/new' },
-        { label: 'List Item', icon: ShoppingBag, color: 'bg-emerald-500', href: '/dashboard/marketplace/new' },
-        { label: 'Legal Inquiry', icon: Scale, color: 'bg-red-500', href: '/legal-search' },
-        { label: 'Support Terminal', icon: ShieldCheck, color: 'bg-dwelzer-gold', href: '/dashboard/messages' },
-    ]
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="fixed bottom-6 right-6 z-[90] flex h-16 w-16 items-center justify-center rounded-full bg-[linear-gradient(135deg,#D4AF37,#F3D06A)] text-slate-900 shadow-gold animate-gold-pulse"
+        aria-label="Global Quick Actions"
+      >
+        <Bolt size={28} />
+      </button>
 
-    return (
-        <div className="fixed bottom-8 right-8 z-[100] flex flex-col items-end gap-4">
-            {/* Action Menu */}
-            {isOpen && (
-                <div className="flex flex-col items-end gap-3 mb-2 animate-in slide-in-from-bottom-5 fade-in duration-300">
-                    {actions.map((action, i) => (
-                        <div key={i} className="flex items-center gap-3 group cursor-pointer" onClick={() => (window.location.href = action.href)}>
-                            <span className="bg-dwelzer-navy text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-white/10">
-                                {action.label}
-                            </span>
-                            <div className={cn(
-                                "w-12 h-12 rounded-2xl flex items-center justify-center text-white shadow-xl transition-all group-hover:scale-110",
-                                action.color
-                            )}>
-                                <action.icon size={20} />
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            )}
-
-            {/* Toggle Button */}
-            <button
-                onClick={() => setIsOpen(!isOpen)}
-                className={cn(
-                    "w-16 h-16 rounded-[24px] flex items-center justify-center shadow-premium transition-all duration-500",
-                    isOpen
-                        ? "bg-dwelzer-navy text-dwelzer-gold rotate-90 border border-dwelzer-gold/30"
-                        : "bg-gradient-gold text-dwelzer-navy hover:scale-110 hover:shadow-gold-glow"
-                )}
-                aria-label="Institutional Actions"
-                title="Institutional Actions"
+      <Drawer isOpen={open} onClose={() => setOpen(false)} title="Global Quick Actions" className="w-[380px] rounded-l-3xl">
+        <div className="space-y-3">
+          {quickActions.map((item) => (
+            <Link
+              key={item.label}
+              href={item.href}
+              onClick={() => setOpen(false)}
+              className="flex items-center justify-between rounded-2xl border border-slate-200 bg-white px-4 py-4 text-slate-800 transition hover:-translate-y-1 hover:shadow-xl"
             >
-                {isOpen ? <X size={32} /> : <Plus size={32} />}
-            </button>
+              <span className="flex items-center gap-3 font-semibold">
+                <item.icon size={18} className="text-[#D4AF37]" />
+                {item.label}
+              </span>
+              <span className="text-xs uppercase tracking-[0.14em] text-slate-500">Open</span>
+            </Link>
+          ))}
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            className="mt-3 inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-slate-500 transition hover:bg-slate-100"
+          >
+            <X size={14} />
+            Close
+          </button>
         </div>
-    )
+      </Drawer>
+    </>
+  )
 }

@@ -25,7 +25,7 @@ export default async function AuctionsPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {auctions.map((auction) => (
+                {auctions.map((auction: any) => (
                     <Card key={auction.id} className="group overflow-hidden border-dwelzer-gold/20 hover:border-dwelzer-gold transition-all">
                         <div className="aspect-[4/3] relative overflow-hidden">
                             <img src={JSON.parse(auction.item.images)[0]} alt={auction.item.title} className="w-full h-full object-cover transition-transform group-hover:scale-110" />

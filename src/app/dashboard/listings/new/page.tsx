@@ -7,6 +7,9 @@ import { ImageUpload } from '@/components/ui/ImageUpload'
 import { Building2, Globe, ShieldCheck, Info } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 
+export const dynamic = 'force-dynamic'
+
+
 export default function NewListingPage() {
     const [images, setImages] = useState<string[]>([])
 
@@ -81,3 +84,5 @@ export default function NewListingPage() {
         </div>
     )
 }
+
+

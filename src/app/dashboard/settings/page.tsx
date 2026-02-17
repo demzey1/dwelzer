@@ -21,6 +21,9 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
+export const dynamic = 'force-dynamic'
+
+
 export default function SettingsPage() {
     const [showApiKey, setShowApiKey] = useState(false)
 
@@ -107,3 +110,5 @@ export default function SettingsPage() {
         </div>
     )
 }
+
+

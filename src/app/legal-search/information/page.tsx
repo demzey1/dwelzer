@@ -5,6 +5,9 @@ import { FileText, Globe, Scale, ShieldCheck } from 'lucide-react'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 
+export const dynamic = 'force-dynamic'
+
+
 export default function LegalSearchInfoPage() {
     const topics = [
         { title: 'EU Data Sovereignty', desc: 'Regulatory standards for digital asset ownership in Europe.' },
@@ -43,3 +46,5 @@ export default function LegalSearchInfoPage() {
         </div>
     )
 }
+
+

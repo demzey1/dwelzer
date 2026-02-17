@@ -14,7 +14,7 @@ export default async function SubscriptionPage() {
     })
 
     // User's current tier (Mocked for dashboard UI)
-    const currentTier = tiers.find(t => t.name.toLowerCase() === 'lord') || tiers[0]
+    const currentTier = tiers.find((t: any) => t.name.toLowerCase() === 'lord') || tiers[0]
 
     return (
         <div className="space-y-12 max-w-6xl mx-auto">
@@ -36,7 +36,7 @@ export default async function SubscriptionPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-                {tiers.map((tier) => (
+                {tiers.map((tier: any) => (
                     <Card
                         key={tier.id}
                         className={cn(
@@ -96,7 +96,7 @@ export default async function SubscriptionPage() {
                         <thead>
                             <tr className="bg-surface border-b border-border">
                                 <th className="px-8 py-6 text-xs font-black uppercase tracking-widest text-text-muted">Benefit</th>
-                                {tiers.map(t => (
+                                {tiers.map((t: any) => (
                                     <th key={t.id} className="px-6 py-6 text-center text-xs font-black uppercase tracking-widest text-dwelzer-navy">{t.name}</th>
                                 ))}
                             </tr>

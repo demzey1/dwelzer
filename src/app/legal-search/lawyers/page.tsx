@@ -6,6 +6,9 @@ import { Scale, ShieldCheck, Globe, Star } from 'lucide-react'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 
+export const dynamic = 'force-dynamic'
+
+
 export default function LegalSearchLawyersPage() {
     const firms = [
         { name: 'Sovereign Counsel LLP', specialty: 'Property Law', region: 'Global', rating: 5.0 },
@@ -48,3 +51,5 @@ export default function LegalSearchLawyersPage() {
         </div>
     )
 }
+
+

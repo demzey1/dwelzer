@@ -99,7 +99,7 @@ export default async function HotelDetailPage({ params }: { params: { id: string
                         <section className="bg-white p-10 rounded-[40px] border border-border shadow-sm">
                             <h3 className="text-2xl font-black text-dwelzer-navy font-display mb-6">About the Estate</h3>
                             <div className="prose prose-slate max-w-none text-text-secondary font-medium leading-relaxed">
-                                {hotel.description.split('\n').map((para, i) => (
+                                {hotel.description.split('\n').map((para: string, i: number) => (
                                     <p key={i} className="mb-4">{para}</p>
                                 ))}
                             </div>

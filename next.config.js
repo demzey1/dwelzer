@@ -1,8 +1,9 @@
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
-  },
   staticPageGenerationTimeout: 300,
+  turbopack: {
+    root: __dirname,
+  },
   images: {
     remotePatterns: [
       {
@@ -11,6 +12,6 @@ const nextConfig = {
       },
     ],
   },
-};
+}
 
-export default nextConfig;
+module.exports = nextConfig

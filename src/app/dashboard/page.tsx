@@ -1,181 +1,165 @@
 import React from 'react'
-import prisma from '@/lib/prisma'
 import Link from 'next/link'
-import { Card } from '@/components/ui/Card'
+import prisma from '@/lib/prisma'
+import { getServerSession } from 'next-auth'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
-import { formatPrice } from '@/lib/utils'
-import {
-    Building2,
-    Calendar,
-    TrendingUp,
-    CircleDollarSign,
-    Clock,
-    ArrowUpRight,
-    ArrowDownRight,
-    ShieldCheck,
-    Briefcase,
-    Globe,
-    ChevronRight,
-    Settings,
-    Scale
-} from 'lucide-react'
+import { Card } from '@/components/ui/Card'
+import { Building2, CalendarCheck2, CircleDollarSign, ShieldCheck, ArrowRight } from 'lucide-react'
 
 export const dynamic = 'force-dynamic'
 
-export default async function DashboardPage() {
-    // Mocking stats for overview
-    const stats = [
-        { label: 'Active Listings', value: '12', icon: Building2, trend: '+2', trendUp: true },
-        { label: 'Total Bookings', value: '48', icon: Calendar, trend: '+12%', trendUp: true },
-        { label: 'Revenue (MTD)', value: '$124,500', icon: CircleDollarSign, trend: '+18.4%', trendUp: true },
-        { label: 'Escrow Volume', value: '$840,000', icon: ShieldCheck, trend: '-2.1%', trendUp: false },
-    ]
+type EscrowStep = 'DEPOSIT' | 'LOCK' | 'RELEASE'
 
-    const recentTransactions = [
-        { id: '1', type: 'SALE', item: 'Luxury Villa in Malibu', amount: '$4,200,000', status: 'RELEASED', date: '2 hours ago' },
-        { id: '2', type: 'BOOKING', item: 'The Ritz-Carlton NYC', amount: '$2,400', status: 'PENDING', date: '5 hours ago' },
-        { id: '3', type: 'MARKET', item: 'Bespoke Oak Dining Set', amount: '$12,000', status: 'INITIATED', date: '1 day ago' },
-        { id: '4', type: 'RENT', item: 'Penthouse Apartment', amount: '$15,000', status: 'CONFIRMED', date: '2 days ago' },
-    ]
-
-    return (
-        <div className="space-y-10">
-            {/* Welcome Banner */}
-            <section className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-                <div>
-                    <h1 className="text-4xl font-black text-dwelzer-navy font-display mb-2">Ecosystem Overview</h1>
-                    <p className="text-text-secondary font-medium">Welcome back. Your global assets are performing at 98.4% efficiency.</p>
-                </div>
-                <div className="flex gap-4">
-                    <Button variant="outline">Download Report</Button>
-                    <Button variant="gold" leftIcon={<ArrowUpRight size={18} />}>Institutional Access</Button>
-                </div>
-            </section>
-
-            {/* Stats Grid */}
-            <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {stats.map((stat, i) => (
-                    <Card key={i} className="p-8 border-none shadow-premium group">
-                        <div className="flex justify-between items-start mb-6">
-                            <div className="w-12 h-12 rounded-2xl bg-dwelzer-navy text-dwelzer-gold flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                                <stat.icon size={24} />
-                            </div>
-                            <Badge
-                                variant={stat.trendUp ? 'emerald' : 'red'}
-                                className="flex items-center gap-1"
-                            >
-                                {stat.trendUp ? <ArrowUpRight size={12} /> : <ArrowDownRight size={12} />}
-                                {stat.trend}
-                            </Badge>
-                        </div>
-                        <p className="text-xs font-black text-text-muted uppercase tracking-widest mb-1">{stat.label}</p>
-                        <h3 className="text-3xl font-black text-dwelzer-navy font-display tracking-tight">{stat.value}</h3>
-                    </Card>
-                ))}
-            </section>
-
-            {/* Main Content Areas */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-                {/* Recent Transactions */}
-                <div className="lg:col-span-2 space-y-6">
-                    <div className="flex items-center justify-between">
-                        <h2 className="text-2xl font-black text-dwelzer-navy font-display">Recent Activity</h2>
-                        <Link href="/dashboard/transactions" className="text-dwelzer-gold font-bold text-sm hover:underline">View All</Link>
-                    </div>
-                    <Card className="p-0 overflow-hidden border-border shadow-sm">
-                        <div className="overflow-x-auto">
-                            <table className="w-full text-left">
-                                <thead>
-                                    <tr className="bg-surface border-b border-border">
-                                        <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-text-muted">Type</th>
-                                        <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-text-muted">Item / Description</th>
-                                        <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-text-muted text-right">Amount</th>
-                                        <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-text-muted text-center">Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-border">
-                                    {recentTransactions.map((tx) => (
-                                        <tr key={tx.id} className="hover:bg-dwelzer-gold/5 transition-colors group cursor-pointer">
-                                            <td className="px-6 py-5">
-                                                <Badge variant="outline" className="group-hover:bg-dwelzer-navy group-hover:text-white transition-colors">{tx.type}</Badge>
-                                            </td>
-                                            <td className="px-6 py-5">
-                                                <p className="font-bold text-dwelzer-navy mb-0.5">{tx.item}</p>
-                                                <p className="text-[10px] text-text-muted font-bold uppercase tracking-widest flex items-center gap-1">
-                                                    <Clock size={10} /> {tx.date}
-                                                </p>
-                                            </td>
-                                            <td className="px-6 py-5 text-right font-black text-dwelzer-navy">
-                                                {tx.amount}
-                                            </td>
-                                            <td className="px-6 py-5 text-center">
-                                                <Badge
-                                                    variant={tx.status === 'RELEASED' ? 'emerald' : tx.status === 'PENDING' ? 'amber' : 'blue'}
-                                                >
-                                                    {tx.status}
-                                                </Badge>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className="p-6 bg-surface text-center">
-                            <p className="text-xs text-text-muted font-bold uppercase tracking-widest">Showing 4 of 124 transactions this month</p>
-                        </div>
-                    </Card>
-                </div>
-
-                {/* Sidebar Info Panels */}
-                <div className="space-y-10">
-                    {/* Subscription Card */}
-                    <Card className="p-8 bg-dwelzer-navy text-white relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-dwelzer-gold/10 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-dwelzer-gold/20 transition-all" />
-                        <h4 className="text-dwelzer-gold font-display text-lg font-bold mb-6">Subscription</h4>
-                        <div className="flex items-center gap-4 mb-8">
-                            <div className="w-14 h-14 rounded-2xl bg-dwelzer-gold text-dwelzer-navy flex items-center justify-center shadow-lg">
-                                <Briefcase size={28} />
-                            </div>
-                            <div>
-                                <p className="text-2xl font-black font-display tracking-tight text-gradient-gold leading-none">LORD TIER</p>
-                                <p className="text-xs text-white/40 font-bold uppercase tracking-widest mt-1">Elite Lifetime Access</p>
-                            </div>
-                        </div>
-                        <ul className="space-y-4 mb-8">
-                            {['Unlimited Premium Listings', 'Institutional Escrow', 'Global Legal Search', 'Priority Support'].map((feat, i) => (
-                                <li key={i} className="flex items-center gap-3 text-sm font-medium text-white/60">
-                                    <ShieldCheck size={16} className="text-dwelzer-gold" />
-                                    {feat}
-                                </li>
-                            ))}
-                        </ul>
-                        <Button variant="gold" className="w-full">Upgrade Services</Button>
-                    </Card>
-
-                    {/* Quick Actions */}
-                    <div className="space-y-4">
-                        <h4 className="font-display font-black text-dwelzer-navy uppercase tracking-widest text-xs px-2">Quick Actions</h4>
-                        {[
-                            { label: 'Create New Listing', icon: Building2 },
-                            { label: 'Browse Global Portals', icon: Globe },
-                            { label: 'Open Legal Search', icon: Scale },
-                            { label: 'System Settings', icon: Settings },
-                        ].map((action, i) => (
-                            <button key={i} className="w-full flex items-center justify-between p-4 rounded-2xl bg-white border border-border hover:border-dwelzer-gold hover:translate-x-2 transition-all group">
-                                <div className="flex items-center gap-4">
-                                    <div className="w-10 h-10 rounded-xl bg-surface group-hover:bg-dwelzer-gold/10 text-text-muted group-hover:text-dwelzer-gold transition-colors flex items-center justify-center">
-                                        <action.icon size={20} />
-                                    </div>
-                                    <span className="font-bold text-dwelzer-navy text-sm">{action.label}</span>
-                                </div>
-                                <ChevronRight size={18} className="text-border group-hover:text-dwelzer-gold" />
-                            </button>
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
+function mapEscrowStep(status?: string): EscrowStep {
+  if (status === 'RELEASED') return 'RELEASE'
+  if (status === 'CONFIRMED' || status === 'DISPUTED') return 'LOCK'
+  return 'DEPOSIT'
 }
 
+const escrowLabels: EscrowStep[] = ['DEPOSIT', 'LOCK', 'RELEASE']
+
+export default async function DashboardOverviewPage() {
+  const session = await getServerSession()
+  const userEmail = session?.user?.email || 'sarah@dwelzer.com'
+
+  const user = await prisma.user.findUnique({
+    where: { email: userEmail },
+    include: {
+      kycVerification: true,
+    },
+  })
+
+  if (!user) {
+    return (
+      <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-sm">
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900">Dashboard Access Unavailable</h1>
+        <p className="mt-2 text-slate-600">Please sign in to load your account dashboard.</p>
+        <Link href="/login" className="mt-4 inline-block">
+          <Button variant="gold">Go to Login</Button>
+        </Link>
+      </div>
+    )
+  }
+
+  const [listingCount, bookingCount, recentBookings, latestEscrow] = await Promise.all([
+    prisma.realEstateListing.count({ where: { userId: user.id } }),
+    prisma.booking.count({ where: { userId: user.id } }),
+    prisma.booking.findMany({
+      where: { userId: user.id },
+      orderBy: { createdAt: 'desc' },
+      take: 5,
+    }),
+    prisma.escrowTransaction.findFirst({
+      where: {
+        OR: [{ buyerId: user.id }, { sellerId: user.id }],
+      },
+      orderBy: { createdAt: 'desc' },
+    }),
+  ])
+
+  const activeEscrowStep = mapEscrowStep(latestEscrow?.status)
+  const activeStepIndex = escrowLabels.findIndex((label) => label === activeEscrowStep)
+  const kycStatus = user.kycVerification?.status ?? 'PENDING'
+
+  return (
+    <div className="space-y-8">
+      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Dashboard</p>
+          <h1 className="text-4xl font-black tracking-tight text-slate-900">Welcome back, {user.name.split(' ')[0]}</h1>
+          <p className="mt-2 text-slate-600">Your cross-portal activity and trust metrics in one premium command view.</p>
+        </div>
+        <Link href="/dashboard/listings/new">
+          <Button variant="gold">
+            Register New Asset
+            <ArrowRight size={16} className="ml-2" />
+          </Button>
+        </Link>
+      </div>
+
+      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+        <Card className="premium-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Listings</p>
+          <div className="mt-3 flex items-center justify-between">
+            <h3 className="text-3xl font-black tracking-tight text-slate-900">{listingCount}</h3>
+            <Building2 className="text-[#D4AF37]" />
+          </div>
+        </Card>
+        <Card className="premium-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Bookings</p>
+          <div className="mt-3 flex items-center justify-between">
+            <h3 className="text-3xl font-black tracking-tight text-slate-900">{bookingCount}</h3>
+            <CalendarCheck2 className="text-[#D4AF37]" />
+          </div>
+        </Card>
+        <Card className="premium-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">KYC Level</p>
+          <div className="mt-3 flex items-center justify-between">
+            <Badge variant={kycStatus === 'VERIFIED' ? 'emerald' : kycStatus === 'SUBMITTED' ? 'amber' : 'outline'}>
+              {kycStatus}
+            </Badge>
+            <ShieldCheck className="text-[#D4AF37]" />
+          </div>
+        </Card>
+        <Card className="premium-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Latest Escrow</p>
+          <div className="mt-3 flex items-center justify-between">
+            <h3 className="text-xl font-black tracking-tight text-slate-900">
+              {latestEscrow ? `$${latestEscrow.amount.toLocaleString()}` : '$0'}
+            </h3>
+            <CircleDollarSign className="text-[#D4AF37]" />
+          </div>
+        </Card>
+      </div>
+
+      <div className="grid gap-5 xl:grid-cols-3">
+        <Card className="premium-card p-6 xl:col-span-2">
+          <h2 className="text-2xl font-black tracking-tight text-slate-900">Escrow Status</h2>
+          <p className="mt-1 text-sm leading-relaxed text-slate-600">Progress flow: Deposit {'->'} Lock {'->'} Release</p>
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            {escrowLabels.map((step, index) => {
+              const isActive = index <= activeStepIndex
+              return (
+                <div
+                  key={step}
+                  className={`rounded-2xl border p-4 transition ${
+                    isActive ? 'border-[#D4AF37]/60 bg-[#D4AF37]/10 shadow-gold' : 'border-slate-200 bg-slate-50'
+                  }`}
+                >
+                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Step {index + 1}</p>
+                  <p className="mt-1 text-lg font-bold tracking-tight text-slate-900">{step}</p>
+                </div>
+              )
+            })}
+          </div>
+        </Card>
+
+        <Card className="premium-card p-6">
+          <h2 className="text-2xl font-black tracking-tight text-slate-900">Recent Bookings</h2>
+          <div className="mt-4 space-y-3">
+            {recentBookings.length === 0 && (
+              <p className="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-500">
+                No recent bookings yet.
+              </p>
+            )}
+            {recentBookings.map((booking) => (
+              <div key={booking.id} className="rounded-xl border border-slate-200 bg-white p-3">
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-semibold text-slate-900">#{booking.id.slice(0, 8)}</p>
+                  <Badge variant={booking.status === 'CONFIRMED' ? 'emerald' : booking.status === 'PENDING' ? 'amber' : 'outline'}>
+                    {booking.status}
+                  </Badge>
+                </div>
+                <p className="mt-2 text-xs text-slate-500">
+                  {new Date(booking.checkIn).toLocaleDateString()} - {new Date(booking.checkOut).toLocaleDateString()}
+                </p>
+                <p className="mt-1 text-sm font-bold text-slate-900">${booking.totalPrice.toLocaleString()}</p>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </div>
+    </div>
+  )
+}

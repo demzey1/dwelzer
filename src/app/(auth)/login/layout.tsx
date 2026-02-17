@@ -9,8 +9,12 @@ import { Button } from '@/components/ui/Button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/Sheet'
 import { PanelLeft } from 'lucide-react'
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const { status } = useSession()
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  const { data: session, status } = useSession()
   const router = useRouter()
   const [isSidebarOpen, setSidebarOpen] = useState(false)
 
@@ -30,12 +34,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   return (
     <div className="flex min-h-screen w-full flex-col bg-surface">
       <Navbar />
-      <div className="flex w-full pt-[76px]">
-        <div className="hidden lg:block w-[260px] fixed top-[76px] left-0 h-[calc(100vh-76px)] border-r border-white/10">
-          <Sidebar />
+      <div className="flex w-full pt-[84px]"> {/* pt value should match navbar height */}
+        <div className="hidden lg:block w-[260px] fixed top-[84px] left-0 h-[calc(100vh-84px)] border-r border-white/10">
+            <Sidebar />
         </div>
         <div className="flex flex-col flex-1 lg:pl-[260px]">
-          <header className="sticky top-[76px] z-30 flex h-14 items-center gap-4 border-b bg-surface px-4 sm:px-6 lg:hidden">
+          <header className="sticky top-[84px] z-30 flex h-14 items-center gap-4 border-b bg-surface px-4 sm:px-6 lg:hidden">
             <Sheet open={isSidebarOpen} onOpenChange={setSidebarOpen}>
               <SheetTrigger asChild>
                 <Button size="icon" variant="outline" className="lg:hidden">
@@ -57,5 +61,5 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </div>
       </div>
     </div>
-    )
+  )
 }

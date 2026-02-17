@@ -56,7 +56,7 @@ export default async function ShortletsPage() {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                    {shortlets.map((shortlet) => (
+                    {shortlets.map((shortlet: any) => (
                         <ShortletCard key={shortlet.id} shortlet={shortlet as any} />
                     ))}
                 </div>

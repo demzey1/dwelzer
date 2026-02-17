@@ -21,7 +21,7 @@ export default async function MyBookingsPage() {
             </div>
 
             <div className="space-y-6">
-                {bookings.map((booking, i) => (
+                {bookings.map((booking: any, i: number) => (
                     <Card key={i} className="p-8 border-border hover:shadow-premium transition-all">
                         <div className="flex flex-col lg:flex-row justify-between gap-8">
                             <div className="flex gap-6">

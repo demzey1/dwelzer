@@ -27,7 +27,7 @@ export default async function MarketplaceBuyPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                {items.map((item) => (
+                {items.map((item: any) => (
                     <Card key={item.id} className="group overflow-hidden border-border hover:border-dwelzer-gold/50 transition-all flex flex-col">
                         <div className="aspect-square relative overflow-hidden">
                             <img src={JSON.parse(item.images)[0]} alt={item.title} className="w-full h-full object-cover transition-transform group-hover:scale-110" />

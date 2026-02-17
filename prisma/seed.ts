@@ -812,7 +812,7 @@ async function main() {
     const twoDaysLater = new Date(now.getTime() + 2 * 24 * 60 * 60 * 1000)
     const fiveDaysLater = new Date(now.getTime() + 5 * 24 * 60 * 60 * 1000)
 
-    const auctionItems = marketItems.filter((i) => {
+    const auctionItems = marketItems.filter((i: any) => {
         // Items 0, 4, 6 are auctions
         return i.isAuction
     })

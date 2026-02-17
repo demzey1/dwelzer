@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter, Outfit } from 'next/font/google'
 import './globals.css'
 import NextAuthProvider from '@/components/providers/NextAuthProvider'
+import RouteTransition from '@/components/providers/RouteTransition'
 import { Toaster } from 'react-hot-toast'
 import { FloatingAction } from '@/components/ui/FloatingAction'
 
@@ -29,7 +30,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
       <body className="font-sans bg-surface text-text-primary antialiased">
         <NextAuthProvider>
-          {children}
+          <RouteTransition>{children}</RouteTransition>
           <FloatingAction />
           <Toaster position="bottom-right" />
         </NextAuthProvider>

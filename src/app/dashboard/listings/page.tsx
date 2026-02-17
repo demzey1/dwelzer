@@ -14,9 +14,9 @@ export default async function MyListingsPage() {
     const shortlets = await prisma.shortlet.findMany({ take: 2 })
 
     const allListings = [
-        ...realEstate.map(r => ({ ...r, portal: 'Real Estate', icon: Building2 })),
-        ...hotels.map(h => ({ ...h, portal: 'Hotels', icon: Hotel })),
-        ...shortlets.map(s => ({ ...s, portal: 'Shortlets', icon: Home })),
+        ...realEstate.map((r: any) => ({ ...r, portal: 'Real Estate', icon: Building2 })),
+        ...hotels.map((h: any) => ({ ...h, portal: 'Hotels', icon: Hotel })),
+        ...shortlets.map((s: any) => ({ ...s, portal: 'Shortlets', icon: Home })),
     ]
 
     return (
