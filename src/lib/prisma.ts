@@ -1,18 +1,14 @@
 import { PrismaClient } from '@prisma/client'
-import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
-import path from 'path'
-
-const rawDatabaseUrl = process.env.DATABASE_URL ?? 'file:./prisma/dev.db'
-const sqlitePath = rawDatabaseUrl.startsWith('file:')
-  ? rawDatabaseUrl.slice('file:'.length)
-  : rawDatabaseUrl
-const adapter = new PrismaBetterSqlite3({
-  url: path.resolve(process.cwd(), sqlitePath),
-})
+import { PrismaPg } from '@prisma/adapter-pg'
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined
 }
+
+const databaseUrl =
+  process.env.DATABASE_URL ??
+  'postgresql://postgres:postgres@localhost:5432/dwelzer?schema=public'
+const adapter = new PrismaPg({ connectionString: databaseUrl })
 
 export const prisma =
   globalForPrisma.prisma ??
