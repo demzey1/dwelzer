@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowRight, ShieldCheck, TimerReset, Video } from 'lucide-react'
 import { PORTALS } from '@/types'
@@ -37,6 +38,7 @@ const previewContent: Record<string, { title: string; sub: string; cta: string }
 }
 
 export default function LandingHero() {
+  const router = useRouter()
   const { activePortal, setActivePortal } = useUIStore()
   const currentPortal = PORTALS.find((portal) => portal.id === activePortal) ?? PORTALS[0]
   const details = previewContent[currentPortal.id]
@@ -94,7 +96,10 @@ export default function LandingHero() {
             <motion.button
               key={portal.id}
               type="button"
-              onClick={() => setActivePortal(portal.id)}
+              onClick={() => {
+                setActivePortal(portal.id)
+                router.push(portal.href)
+              }}
               whileHover={{ y: -4, rotateX: 2, rotateY: -2 }}
               transition={{ duration: 0.25, ease: 'easeOut' }}
               className={`premium-card text-left ${currentPortal.id === portal.id ? 'border-[#D4AF37] ring-1 ring-[#D4AF37]/40' : ''}`}

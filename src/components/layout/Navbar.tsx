@@ -4,11 +4,34 @@ import React, { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
-import { Bell, Building2, ChevronDown, Menu, Wallet, X } from 'lucide-react'
+import { Bell, Building2, ChevronDown, Gavel, Menu, Scale, ShoppingBag, Wallet, X } from 'lucide-react'
 import { PORTALS } from '@/types'
 import { Button } from '@/components/ui/Button'
 import { cn } from '@/lib/utils'
 import { useUIStore } from '@/stores/useUIStore'
+import { Modal } from '@/components/ui/Modal'
+
+type PortalAction = {
+  label: string
+  href: string
+  icon: React.ElementType
+}
+
+const portalActionMap: Record<string, PortalAction[]> = {
+  'real-estate': [
+    { label: 'Buy Property', href: '/real-estate/buy', icon: Building2 },
+    { label: 'Rent Property', href: '/real-estate/rent', icon: Building2 },
+    { label: 'List Property', href: '/dashboard/listings/new', icon: Building2 },
+  ],
+  marketplace: [
+    { label: 'Purchase Items', href: '/marketplace/buy', icon: ShoppingBag },
+    { label: 'Auction House', href: '/marketplace/auctions', icon: Gavel },
+  ],
+  'legal-search': [
+    { label: 'Find Lawyers', href: '/legal-search/lawyers', icon: Scale },
+    { label: 'Property Legal Information', href: '/legal-search/information', icon: Scale },
+  ],
+}
 
 export default function Navbar() {
   const pathname = usePathname()
@@ -18,6 +41,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [switcherOpen, setSwitcherOpen] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [actionPortal, setActionPortal] = useState<string | null>(null)
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 8)
@@ -36,6 +60,17 @@ export default function Navbar() {
     setActivePortal(portalId)
     setSwitcherOpen(false)
     setMobileOpen(false)
+    router.push(href)
+  }
+
+  const onPortalClick = (portalId: string, href: string) => {
+    setActivePortal(portalId)
+    setSwitcherOpen(false)
+    setMobileOpen(false)
+    if (portalActionMap[portalId]) {
+      setActionPortal(portalId)
+      return
+    }
     router.push(href)
   }
 
@@ -78,7 +113,7 @@ export default function Navbar() {
                 <button
                   key={portal.id}
                   type="button"
-                  onClick={() => onSelectPortal(portal.id, portal.href)}
+                  onClick={() => onPortalClick(portal.id, portal.href)}
                   className={cn(
                     'flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-sm transition',
                     selectedPortal.id === portal.id
@@ -142,7 +177,7 @@ export default function Navbar() {
                 <button
                   key={portal.id}
                   type="button"
-                  onClick={() => onSelectPortal(portal.id, portal.href)}
+                  onClick={() => onPortalClick(portal.id, portal.href)}
                   className={cn(
                     'rounded-xl px-3 py-2 text-left text-sm font-medium',
                     selectedPortal.id === portal.id ? 'bg-slate-900 text-slate-50' : 'bg-white text-slate-700'
@@ -159,6 +194,38 @@ export default function Navbar() {
           </div>
         </div>
       )}
+
+      <Modal
+        isOpen={Boolean(actionPortal)}
+        onClose={() => setActionPortal(null)}
+        title={
+          actionPortal
+            ? PORTALS.find((portal) => portal.id === actionPortal)?.name ?? 'Portal Actions'
+            : 'Portal Actions'
+        }
+        size="sm"
+        className="rounded-3xl"
+      >
+        <div className="space-y-3">
+          {(actionPortal ? portalActionMap[actionPortal] : []).map((action) => (
+            <button
+              key={action.label}
+              type="button"
+              onClick={() => {
+                setActionPortal(null)
+                router.push(action.href)
+              }}
+              className="flex w-full items-center justify-between rounded-2xl border border-slate-200 bg-white px-4 py-3 text-left text-slate-800 transition hover:-translate-y-1 hover:shadow-xl"
+            >
+              <span className="flex items-center gap-3 font-semibold">
+                <action.icon size={16} className="text-[#D4AF37]" />
+                {action.label}
+              </span>
+              <ChevronDown size={14} className="-rotate-90 text-slate-400" />
+            </button>
+          ))}
+        </div>
+      </Modal>
     </header>
   )
 }
