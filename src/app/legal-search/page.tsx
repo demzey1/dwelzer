@@ -86,7 +86,7 @@ export default async function LegalSearchPage() {
                         </div>
 
                         <div className="space-y-6">
-                            {entries.map((entry) => (
+                            {entries.map((entry: any) => (
                                 <Card key={entry.id} className="p-8 hover:border-dwelzer-gold/50 cursor-pointer">
                                     <div className="flex flex-col md:flex-row justify-between gap-6 mb-6">
                                         <div className="flex gap-4">
