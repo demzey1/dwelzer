@@ -1,10 +1,10 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Upload, X, Image as ImageIcon, Check, ShieldCheck } from 'lucide-react'
-import { Button } from './Button'
+import { Upload, X, Image as ImageIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/Badge'
+import toast from 'react-hot-toast'
 
 export interface ImageUploadProps {
     onUpload?: (urls: string[]) => void
@@ -15,19 +15,41 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, maxImages = 
     const [images, setImages] = useState<string[]>([])
     const [isUploading, setIsUploading] = useState(false)
 
-    const simulateUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const uploadFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files
-        if (!files) return
-
+        if (!files || files.length === 0) return
         setIsUploading(true)
-        // Simulate network delay for institutional grade upload
-        setTimeout(() => {
-            const newImages = Array.from(files).map(f => URL.createObjectURL(f))
-            const updated = [...images, ...newImages].slice(0, maxImages)
+
+        try {
+            const uploaded: string[] = []
+
+            for (const file of Array.from(files).slice(0, maxImages - images.length)) {
+                const formData = new FormData()
+                formData.append('file', file)
+
+                const res = await fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData,
+                })
+
+                if (!res.ok) {
+                    throw new Error('Upload failed')
+                }
+                const data = await res.json()
+                uploaded.push(data.url)
+            }
+
+            const updated = [...images, ...uploaded].slice(0, maxImages)
             setImages(updated)
             onUpload?.(updated)
+            toast.success('Images uploaded')
+        } catch (err) {
+            console.error(err)
+            toast.error('Upload failed. Please try again.')
+        } finally {
             setIsUploading(false)
-        }, 1500)
+            e.target.value = ''
+        }
     }
 
     const removeImage = (index: number) => {
@@ -65,7 +87,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload, maxImages = 
                             multiple
                             accept="image/*"
                             disabled={isUploading}
-                            onChange={simulateUpload}
+                            onChange={uploadFiles}
                         />
                         {isUploading ? (
                             <Upload className="text-dwelzer-gold animate-bounce" size={32} />

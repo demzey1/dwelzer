@@ -44,7 +44,7 @@ export default function LandingHero() {
   const details = previewContent[currentPortal.id]
 
   return (
-    <section className="relative overflow-hidden bg-slate-50 pt-36">
+    <section className="relative overflow-hidden bg-slate-50 pt-28 md:pt-32">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(212,175,55,0.14),transparent_40%),radial-gradient(circle_at_80%_10%,rgba(15,23,42,0.12),transparent_35%)]" />
       <div className="container-app relative mx-auto pb-20">
         <div className="grid gap-12 lg:grid-cols-2">
@@ -53,7 +53,7 @@ export default function LandingHero() {
               <ShieldCheck size={14} className="text-[#D4AF37]" />
               Series-A Quality Interface
             </p>
-            <h1 className="max-w-xl text-5xl font-black tracking-tight text-slate-900 md:text-6xl">
+            <h1 className="max-w-xl text-4xl font-black tracking-tight text-slate-900 md:text-5xl lg:text-6xl leading-tight">
               DWELZER is your multi-portal command layer for global assets.
             </h1>
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-slate-600">
@@ -91,7 +91,7 @@ export default function LandingHero() {
           </div>
         </div>
 
-        <div className="mt-14 grid gap-4 md:grid-cols-3 lg:grid-cols-5">
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {PORTALS.map((portal) => (
             <motion.button
               key={portal.id}
